@@ -26,8 +26,8 @@
             </p>
           </div>
           <Field>
-            <FieldLabel for="email-{id}">Email</FieldLabel>
-            <Input id="email-{id}" type="email" placeholder="m@example.com" required />
+            <FieldLabel for="username-{id}">Username</FieldLabel>
+            <Input id="username-{id}" type="text" placeholder="Max Mustermann" required />
           </Field>
           <Field>
             <div class="flex items-center">
