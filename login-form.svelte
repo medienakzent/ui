@@ -9,25 +9,89 @@
   } from "$lib/components/ui/field/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import { cn } from "$lib/utils.js";
+  import { cn, md5 } from "$lib/utils.js";
   import type { HTMLAttributes } from "svelte/elements";
   let { class: className, ...restProps }: HTMLAttributes<HTMLDivElement> = $props();
   const id = $props.id();
+
+  let server = "compdata.kkis.cloud";
+  let username = "";
+  let password = "";
+  let loading = false;
+  let errorMessage = "";
+  let successMessage = "";
+
+  const handleSubmit = async () => {
+    errorMessage = "";
+    successMessage = "";
+    loading = true;
+
+    try {
+      // TODO: Use given Server currently proxied for local development
+      const endpoint = `/kkisapi/api/kkis/mitarbeiter/login`;
+
+      // TODO: use hashed password (md5) currently using hashed one for testing
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ loginName: username, password: password }),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(payload?.message ?? "Login failed");
+      }
+
+      const token = payload?.offlineAPIKey;
+
+      if (token) {
+        localStorage.setItem("authToken", token);
+      }
+
+      successMessage = payload?.message ?? "Login successful.";
+    } catch (error) {
+      errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred.";
+    } finally {
+      loading = false;
+    }
+  };
 </script>
 <div class={cn("flex flex-col gap-6", className)} {...restProps}>
   <Card.Root class="overflow-hidden p-0">
     <Card.Content class="grid p-0 md:grid-cols-2">
-      <form class="p-6 md:p-8">
+      <form class="p-6 md:p-8" on:submit|preventDefault={handleSubmit}>
         <FieldGroup>
           <div class="flex flex-col items-center gap-2 text-center">
+            <img alt="Compdata Logo" src="/images/icon.png" class="w-12 h-12 mx-auto rounded-md"/>
             <h1 class="text-2xl font-bold">Welcome back</h1>
             <p class="text-muted-foreground text-balance">
               Login to your Compdata account
             </p>
           </div>
           <Field>
+            <FieldLabel for="server-{id}">Server</FieldLabel>
+            <Input
+              id="server-{id}"
+              name="server"
+              type="text"
+              placeholder="compdata.kkis.cloud"
+              bind:value={server}
+              required
+            />
+          </Field>
+          <Field>
             <FieldLabel for="username-{id}">Username</FieldLabel>
-            <Input id="username-{id}" type="text" placeholder="Max Mustermann" required />
+            <Input
+              id="username-{id}"
+              name="username"
+              type="text"
+              placeholder="Max Mustermann"
+              bind:value={username}
+              autocomplete="username"
+              required
+            />
           </Field>
           <Field>
             <div class="flex items-center">
@@ -36,11 +100,30 @@
                 Forgot your password?
               </a>
             </div>
-            <Input id="password-{id}" type="password" required />
+            <Input
+              id="password-{id}"
+              name="password"
+              type="password"
+              bind:value={password}
+              autocomplete="current-password"
+              required
+            />
           </Field>
           <Field>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={loading}>
+              {#if loading}
+                Signing in...
+              {:else}
+                Login
+              {/if}
+            </Button>
           </Field>
+          {#if errorMessage}
+            <FieldDescription class="text-destructive">{errorMessage}</FieldDescription>
+          {/if}
+          {#if successMessage}
+            <FieldDescription class="text-emerald-600">{successMessage}</FieldDescription>
+          {/if}
           <FieldSeparator class="*:data-[slot=field-separator-content]:bg-card">
             Or continue with
           </FieldSeparator>
@@ -55,9 +138,6 @@
               <span class="sr-only">Login with Microsoft</span>
             </Button>
           </Field>
-          <FieldDescription class="text-center">
-            Don't have an account? <a href="##">Sign up</a>
-          </FieldDescription>
         </FieldGroup>
       </form>
       <div class="bg-muted relative hidden md:block">
