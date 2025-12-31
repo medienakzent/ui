@@ -9,7 +9,7 @@
   } from "$lib/components/ui/field/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import { cn, md5 } from "$lib/utils.js";
+  import { cn } from "$lib/utils.js";
   import type { HTMLAttributes } from "svelte/elements";
   let { class: className, ...restProps }: HTMLAttributes<HTMLDivElement> = $props();
   const id = $props.id();
