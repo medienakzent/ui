@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Select as SelectPrimitive } from "bits-ui";
 
-	let { ...restProps }: SelectPrimitive.GroupProps = $props();
+	let { children, ...restProps }: SelectPrimitive.GroupProps = $props();
 </script>
 
 <SelectPrimitive.Group {...restProps}>
-	<slot />
+	{@render children?.()}
 </SelectPrimitive.Group>

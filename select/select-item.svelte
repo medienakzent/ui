@@ -3,7 +3,7 @@
 	import { Check } from "lucide-svelte";
 	import { cn } from "$lib/utils";
 
-	let { class: className, ...restProps }: SelectPrimitive.ItemProps = $props();
+	let { class: className, children, ...restProps }: SelectPrimitive.ItemProps = $props();
 </script>
 
 <SelectPrimitive.Item
@@ -17,6 +17,6 @@
 		<Check class="size-4" />
 	</span>
 	<span class="ml-6 flex-1">
-		<slot />
+		{@render children?.()}
 	</span>
 </SelectPrimitive.Item>

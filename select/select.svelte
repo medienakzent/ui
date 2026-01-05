@@ -1,7 +1,17 @@
 <script lang="ts">
 	import { Select as SelectPrimitive } from "bits-ui";
 
-	let { value = $bindable(), defaultValue, type = "single", name, disabled, required, loop, ...restProps }: SelectPrimitive.Props = $props();
+	let {
+		value = $bindable(),
+		defaultValue,
+		type = "single",
+		name,
+		disabled,
+		required,
+		loop,
+		children,
+		...restProps
+	}: SelectPrimitive.Props = $props();
 </script>
 
 <SelectPrimitive.Root
@@ -14,5 +24,5 @@
 	{loop}
 	{...restProps}
 >
-	<slot />
+	{@render children?.()}
 </SelectPrimitive.Root>

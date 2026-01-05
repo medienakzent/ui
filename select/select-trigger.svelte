@@ -3,7 +3,7 @@
 	import { ChevronDown } from "lucide-svelte";
 	import { cn } from "$lib/utils";
 
-	let { class: className, ...restProps }: SelectPrimitive.TriggerProps = $props();
+	let { class: className, children, ...restProps }: SelectPrimitive.TriggerProps = $props();
 </script>
 
 <SelectPrimitive.Trigger
@@ -16,7 +16,7 @@
 	{...restProps}
 >
 	<span class="line-clamp-1 text-left">
-		<slot />
+		{@render children?.()}
 	</span>
 	<ChevronDown class="ml-2 size-4 opacity-60" />
 </SelectPrimitive.Trigger>

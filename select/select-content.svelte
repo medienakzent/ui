@@ -2,7 +2,12 @@
 	import { Select as SelectPrimitive } from "bits-ui";
 	import { cn } from "$lib/utils";
 
-	let { class: className, align = "start", ...restProps }: SelectPrimitive.ContentProps = $props();
+	let {
+		class: className,
+		align = "start",
+		children,
+		...restProps
+	}: SelectPrimitive.ContentProps = $props();
 </script>
 
 <SelectPrimitive.Portal>
@@ -16,7 +21,7 @@
 		{...restProps}
 	>
 		<SelectPrimitive.Viewport class="p-1">
-			<slot />
+			{@render children?.()}
 		</SelectPrimitive.Viewport>
 	</SelectPrimitive.Content>
 </SelectPrimitive.Portal>
