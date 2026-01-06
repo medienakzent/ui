@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Select as SelectPrimitive } from "bits-ui";
-	import { Check } from "lucide-svelte";
-	import { cn } from "$lib/utils";
+	import { Select as SelectPrimitive } from 'bits-ui';
+	import { Check } from 'lucide-svelte';
+	import { cn } from '$lib/utils';
 
 	let { class: className, children, ...restProps }: SelectPrimitive.ItemProps = $props();
 </script>
 
 <SelectPrimitive.Item
 	class={cn(
-		"relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-2 text-sm outline-none transition focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+		'relative flex w-full cursor-default items-center rounded-sm px-2 py-2 text-sm transition outline-none select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
 		className
 	)}
 	{...restProps}

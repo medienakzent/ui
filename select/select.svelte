@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { Select as SelectPrimitive } from "bits-ui";
+	import { Select as SelectPrimitive } from 'bits-ui';
 
 	let {
 		value = $bindable(),
 		defaultValue,
-		type = "single",
+		type = 'single',
 		name,
 		disabled,
 		required,
