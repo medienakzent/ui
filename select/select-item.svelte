@@ -17,6 +17,6 @@
 		<Check class="size-4" />
 	</span>
 	<span class="ml-6 flex-1">
-		{@render children?.()}
+		{@render children?.({ selected: false, highlighted: false })}
 	</span>
 </SelectPrimitive.Item>
