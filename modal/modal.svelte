@@ -30,6 +30,13 @@
 	export let onCancel: () => void;
 	export let variant: 'card' | 'plain' = 'card';
 	export let labelledBy: string | undefined = undefined;
+	/**
+	 * On `<sm:` screens, anchor the modal to the bottom of the viewport (bottom-sheet style)
+	 * with a rounded top edge and ≤ 90vh height. On `sm:`+ screens, behaves like a normal
+	 * centered card. Only applies to `variant="card"`. Selectors and tall content forms opt
+	 * into this for a more native feel on phones.
+	 */
+	export let mobileBottom: boolean = false;
 
 	let dialogEl: HTMLDivElement | undefined;
 
@@ -62,9 +69,11 @@
 
 {#if open}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center {variant === 'plain'
+		class="fixed inset-0 z-50 flex justify-center {variant === 'plain'
 			? 'bg-black/95'
-			: 'bg-black/50'}"
+			: 'bg-black/50'} {mobileBottom && variant === 'card'
+			? 'items-end sm:items-center'
+			: 'items-center'}"
 		on:click={handleBackdrop}
 		on:keydown={handleKeydown}
 		role="presentation"
@@ -72,9 +81,9 @@
 		{#if variant === 'card'}
 			<div
 				bind:this={dialogEl}
-				class="mx-4 flex max-h-[85vh] w-full {sizeClass[
-					size
-				]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none"
+				class={mobileBottom
+					? `flex max-h-[90vh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-t-xl bg-background shadow-xl outline-none sm:mx-4 sm:max-h-[85vh] sm:rounded-lg`
+					: `mx-4 flex max-h-[85vh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none`}
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby={labelledBy}
