@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
-	import Menu from '@lucide/svelte/icons/menu';
-	import X from '@lucide/svelte/icons/x';
+	import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
+	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 	import type { ComponentProps } from 'svelte';
 	import { useSidebar } from './context.svelte.js';
 
@@ -23,11 +23,7 @@
 	data-slot="sidebar-trigger"
 	variant="ghost"
 	size="icon"
-	class={cn(
-		'size-9 transition-transform duration-200',
-		sidebar.open ? 'rotate-0' : 'rotate-180',
-		className
-	)}
+	class={cn('size-9 text-muted-foreground', className)}
 	type="button"
 	onclick={(e) => {
 		onclick?.(e);
@@ -36,9 +32,9 @@
 	{...restProps}
 >
 	{#if sidebar.open}
-		<X class="size-5" />
+		<PanelLeftClose class="size-5" />
 	{:else}
-		<Menu class="size-5" />
+		<PanelLeftOpen class="size-5" />
 	{/if}
 	<span class="sr-only">Toggle Sidebar</span>
 </Button>

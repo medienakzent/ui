@@ -3,7 +3,11 @@
 	import { Check } from 'lucide-svelte';
 	import { cn } from '$lib/utils';
 
-	let { class: className, children, ...restProps }: SelectPrimitive.ItemProps = $props();
+	let {
+		class: className,
+		children: itemChildren,
+		...restProps
+	}: SelectPrimitive.ItemProps = $props();
 </script>
 
 <SelectPrimitive.Item
@@ -13,10 +17,14 @@
 	)}
 	{...restProps}
 >
-	<span class="absolute left-2 flex size-4 items-center justify-center">
-		<Check class="size-4" />
-	</span>
-	<span class="ml-6 flex-1">
-		{@render children?.({ selected: false, highlighted: false })}
-	</span>
+	{#snippet children({ selected, highlighted })}
+		<span class="absolute left-2 flex size-4 items-center justify-center">
+			{#if selected}
+				<Check class="size-4" />
+			{/if}
+		</span>
+		<span class="ml-6 flex-1">
+			{@render itemChildren?.({ selected, highlighted })}
+		</span>
+	{/snippet}
 </SelectPrimitive.Item>
