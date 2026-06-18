@@ -82,8 +82,8 @@
 			<div
 				bind:this={dialogEl}
 				class={mobileBottom
-					? `flex max-h-[90vh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-t-xl bg-background shadow-xl outline-none sm:mx-4 sm:max-h-[85vh] sm:rounded-lg`
-					: `mx-4 flex max-h-[85vh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none`}
+					? `flex max-h-[90dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-t-xl bg-background shadow-xl outline-none sm:mx-4 sm:max-h-[85dvh] sm:rounded-lg`
+					: `mx-4 flex max-h-[85dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none`}
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby={labelledBy}

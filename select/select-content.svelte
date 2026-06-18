@@ -20,7 +20,12 @@
 		{align}
 		{...restProps}
 	>
-		<SelectPrimitive.Viewport class="p-1">
+		<!-- #206: Dropdown auf den kollisionsbewussten Platz (bits-ui exposed
+		     `--bits-floating-available-height`) begrenzen und intern scrollen
+		     lassen, statt fensterhoch aufzulaufen. -->
+		<SelectPrimitive.Viewport
+			class="max-h-[var(--bits-floating-available-height)] w-full overflow-y-auto overscroll-contain p-1"
+		>
 			{@render children?.()}
 		</SelectPrimitive.Viewport>
 	</SelectPrimitive.Content>
