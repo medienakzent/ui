@@ -25,7 +25,7 @@
 {#if collapsible === 'none'}
 	<div
 		class={cn(
-			'flex h-full w-(--sidebar-width) flex-col bg-gradient-to-br from-background via-primary/5 to-primary/10 text-sidebar-foreground',
+			'flex h-full w-(--sidebar-width) flex-col bg-background text-sidebar-foreground',
 			className
 		)}
 		bind:this={ref}
@@ -39,7 +39,7 @@
 			data-sidebar="sidebar"
 			data-slot="sidebar"
 			data-mobile="true"
-			class="w-(--sidebar-width) bg-gradient-to-br from-background via-primary/5 to-primary/10 p-0 text-sidebar-foreground [&>button]:hidden"
+			class="w-(--sidebar-width) bg-background p-0 text-sidebar-foreground [&>button]:hidden"
 			style="--sidebar-width: {SIDEBAR_WIDTH_MOBILE};"
 			{side}
 		>
