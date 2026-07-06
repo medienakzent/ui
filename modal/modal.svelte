@@ -37,6 +37,13 @@
 	 * into this for a more native feel on phones.
 	 */
 	export let mobileBottom: boolean = false;
+	/**
+	 * Ob ein Klick auf den Hintergrund (Backdrop) das Popup schließt. Default
+	 * FALSE: Popups dürfen sich nur über eine Schaltfläche (Abbrechen/X/Speichern)
+	 * schließen — ein versehentlicher Klick daneben verwirft sonst ungespeicherte
+	 * Eingaben. Reine Viewer (Galerie/Bild) können es per Prop aktivieren.
+	 */
+	export let closeOnBackdrop: boolean = false;
 
 	let dialogEl: HTMLDivElement | undefined;
 
@@ -53,7 +60,7 @@
 	}
 
 	function handleBackdrop(e: MouseEvent) {
-		if (dismissible && e.target === e.currentTarget) onCancel();
+		if (closeOnBackdrop && dismissible && e.target === e.currentTarget) onCancel();
 	}
 
 	// Body scroll lock while modal is open
