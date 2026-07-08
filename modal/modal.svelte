@@ -44,6 +44,13 @@
 	 * Eingaben. Reine Viewer (Galerie/Bild) können es per Prop aktivieren.
 	 */
 	export let closeOnBackdrop: boolean = false;
+	/**
+	 * z-index-Klasse des Overlays. Default `z-50` (Standard-Popup-Ebene). Höher
+	 * setzen, wenn dieses Popup ÜBER einem bereits offenen Popup liegen muss
+	 * (z. B. der Bild-Editor über dem Galerie-Viewer) — sonst gewinnt bei
+	 * gleichem z-index das im DOM zuletzt gerenderte (alte) Popup.
+	 */
+	export let zClass: string = 'z-50';
 
 	let dialogEl: HTMLDivElement | undefined;
 
@@ -76,7 +83,7 @@
 
 {#if open}
 	<div
-		class="fixed inset-0 z-50 flex justify-center {variant === 'plain'
+		class="fixed inset-0 {zClass} flex justify-center {variant === 'plain'
 			? 'bg-black/95'
 			: 'bg-black/70 backdrop-blur-sm'} {mobileBottom && variant === 'card'
 			? 'items-end sm:items-center'
