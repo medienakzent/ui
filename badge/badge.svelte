@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type BadgeVariant = 'id' | 'neutral' | 'positive' | 'warning';
+	export type BadgeVariant = 'id' | 'neutral' | 'positive' | 'warning' | 'signal';
 
 	/**
 	 * Variant → classes, lifted verbatim from the repeated pill markup across the
@@ -8,6 +8,7 @@
 	 *  - `neutral`  metric pill (counts)
 	 *  - `positive` success / contract / done
 	 *  - `warning`  attention / unchecked / locked
+	 *  - `signal`   strong red marker (e.g. Begehungs-Auftrag)
 	 */
 	export const badgeVariants: Record<BadgeVariant, string> = {
 		id: 'rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground',
@@ -16,7 +17,9 @@
 		positive:
 			'rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-[11px] font-medium text-emerald-700',
 		warning:
-			'rounded-full border border-amber-200 bg-amber-50 px-2 py-1 text-[11px] font-medium text-amber-700'
+			'rounded-full border border-amber-200 bg-amber-50 px-2 py-1 text-[11px] font-medium text-amber-700',
+		signal:
+			'rounded-full border border-red-300 bg-red-50 px-2 py-1 text-[11px] font-semibold text-red-700'
 	};
 </script>
 
