@@ -24,6 +24,8 @@
 		class?: string;
 		/** Trennlinie oberhalb dieser Option (bei aktiver Suche ausgeblendet). */
 		separatorBefore?: boolean;
+		/** Nicht auswählbar (z. B. Lade-/Fehler-/Leer-Platzhalter). */
+		disabled?: boolean;
 	};
 </script>
 
@@ -42,6 +44,9 @@
 		searchable = true,
 		align = 'start',
 		invalid = false,
+		id,
+		ariaLabel,
+		heading,
 		class: className,
 		style = '',
 		open = $bindable(false)
@@ -54,6 +59,12 @@
 		searchable?: boolean;
 		align?: 'start' | 'center' | 'end';
 		invalid?: boolean;
+		/** id des Triggers, damit ein <label for=…> darauf zeigen kann. */
+		id?: string;
+		/** aria-label des Triggers, wenn kein sichtbares Label existiert. */
+		ariaLabel?: string;
+		/** Optionale Überschrift oberhalb der Liste (ersetzt frühere Select.Group). */
+		heading?: string;
 		class?: string;
 		style?: string;
 		open?: boolean;
@@ -70,12 +81,13 @@
 	});
 
 	function pick(opt: SearchableSelectOption) {
+		if (opt.disabled) return;
 		open = false;
 		onSelect?.(opt.value);
 	}
 
 	function optionButtons(): HTMLButtonElement[] {
-		return listEl ? Array.from(listEl.querySelectorAll('button')) : [];
+		return listEl ? Array.from(listEl.querySelectorAll('button:not([disabled])')) : [];
 	}
 
 	function onSearchKeydown(e: KeyboardEvent) {
@@ -111,8 +123,10 @@
 	}}
 >
 	<PopoverPrimitive.Trigger
+		{id}
 		{disabled}
 		{style}
+		aria-label={ariaLabel}
 		aria-invalid={invalid || undefined}
 		class={cn(
 			'flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30',
@@ -161,6 +175,9 @@
 				onkeydown={onListKeydown}
 				class="overflow-y-auto overscroll-contain p-1 outline-none"
 			>
+				{#if heading}
+					<div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">{heading}</div>
+				{/if}
 				{#each filtered as opt (opt.value)}
 					{#if opt.separatorBefore && !query.trim()}
 						<div class="my-1 border-t border-border" role="separator"></div>
@@ -168,10 +185,12 @@
 					<button
 						type="button"
 						role="option"
+						disabled={opt.disabled}
 						aria-selected={value != null ? opt.value === value : undefined}
 						onclick={() => pick(opt)}
 						class={cn(
 							'flex w-full items-center rounded-sm px-2 py-2 text-left text-sm transition outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+							opt.disabled && 'pointer-events-none opacity-50',
 							opt.class
 						)}
 					>
