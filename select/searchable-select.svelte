@@ -26,6 +26,8 @@
 		separatorBefore?: boolean;
 		/** Nicht auswählbar (z. B. Lade-/Fehler-/Leer-Platzhalter). */
 		disabled?: boolean;
+		/** Optionales Icon hinter dem Label (z. B. Markierung „direkt zugeordnet"). */
+		iconAfter?: import('svelte').Component<{ class?: string }>;
 	};
 </script>
 
@@ -202,6 +204,10 @@
 							</span>
 						{/if}
 						<span class="flex-1">{opt.label}</span>
+						{#if opt.iconAfter}
+							{@const IconAfter = opt.iconAfter}
+							<IconAfter class="ml-2 size-4 shrink-0 text-muted-foreground" />
+						{/if}
 					</button>
 				{/each}
 				{#if filtered.length === 0}
