@@ -85,7 +85,7 @@
 	<div
 		class="fixed inset-0 {zClass} flex justify-center {variant === 'plain'
 			? 'bg-black/95'
-			: 'bg-black/40 backdrop-blur-sm'} {mobileBottom && variant === 'card'
+			: 'bg-black/30 backdrop-blur-sm'} {mobileBottom && variant === 'card'
 			? 'items-end sm:items-center'
 			: 'items-center'}"
 		on:click={handleBackdrop}
