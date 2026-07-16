@@ -51,6 +51,8 @@
 		heading,
 		class: className,
 		style = '',
+		triggerIcon,
+		labelClass = '',
 		open = $bindable(false)
 	}: {
 		options?: SearchableSelectOption[];
@@ -69,6 +71,11 @@
 		heading?: string;
 		class?: string;
 		style?: string;
+		/** Optionales Icon im Trigger (vor dem Label) — z. B. für kompakte
+		 *  Icon-only-Buttons auf Mobilgeräten (Label per `labelClass` ausblenden). */
+		triggerIcon?: import('svelte').Component<{ class?: string }>;
+		/** Zusatzklassen für das Label im Trigger (z. B. `hidden sm:inline`). */
+		labelClass?: string;
 		open?: boolean;
 	} = $props();
 
@@ -137,7 +144,13 @@
 			className
 		)}
 	>
-		<span class="line-clamp-1 text-left">{selected?.label ?? placeholder}</span>
+		<span class="flex min-w-0 items-center gap-2">
+			{#if triggerIcon}
+				{@const TriggerIcon = triggerIcon}
+				<TriggerIcon class="size-4 shrink-0" />
+			{/if}
+			<span class="line-clamp-1 text-left {labelClass}">{selected?.label ?? placeholder}</span>
+		</span>
 		<ChevronDown class="ml-2 size-4 shrink-0 opacity-60" />
 	</PopoverPrimitive.Trigger>
 	<PopoverPrimitive.Portal>
