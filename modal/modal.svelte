@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { tick } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
 	type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -62,6 +64,22 @@
 		'2xl': 'max-w-2xl'
 	};
 
+	// Öffnen/Schließen animieren: Backdrop blendet, die Karte fliegt kurz von
+	// unten ein. Im Bottom-Sheet-Modus auf Phones (mobileBottom, <sm) rutscht
+	// sie komplett von der Unterkante herein — wie ein natives Sheet. Die
+	// Parameter werden pro Öffnen ausgewertet (Funktionsaufruf im Markup).
+	const reducedMotion = () =>
+		typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const backdropFade = () => ({ duration: reducedMotion() ? 0 : 150 });
+	const panelFly = () => {
+		if (reducedMotion()) return { duration: 0 };
+		const isSheet =
+			mobileBottom && variant === 'card' && window.matchMedia('(max-width: 639px)').matches;
+		return isSheet
+			? { y: '100%', duration: 260, easing: cubicOut }
+			: { y: 16, duration: 200, easing: cubicOut };
+	};
+
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape' && dismissible) onCancel();
 	}
@@ -91,10 +109,12 @@
 		on:click={handleBackdrop}
 		on:keydown={handleKeydown}
 		role="presentation"
+		transition:fade={backdropFade()}
 	>
 		{#if variant === 'card'}
 			<div
 				bind:this={dialogEl}
+				transition:fly|global={panelFly()}
 				class={mobileBottom
 					? `flex max-h-[90dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-t-xl bg-background shadow-xl outline-none sm:mx-4 sm:max-h-[85dvh] sm:rounded-lg`
 					: `mx-4 flex max-h-[85dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none`}
