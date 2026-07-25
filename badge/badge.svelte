@@ -15,11 +15,11 @@
 		neutral:
 			'rounded-full border border-border bg-background px-2 py-1 text-[11px] font-medium text-foreground',
 		positive:
-			'rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-[11px] font-medium text-emerald-700',
+			'rounded-full border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950 px-2 py-1 text-[11px] font-medium text-emerald-700 dark:text-emerald-300',
 		warning:
-			'rounded-full border border-amber-200 bg-amber-50 px-2 py-1 text-[11px] font-medium text-amber-700',
+			'rounded-full border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-1 text-[11px] font-medium text-amber-700 dark:text-amber-300',
 		signal:
-			'rounded-full border border-red-300 bg-red-50 px-2 py-1 text-[11px] font-semibold text-red-700'
+			'rounded-full border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-[11px] font-semibold text-red-700 dark:text-red-300'
 	};
 </script>
 
