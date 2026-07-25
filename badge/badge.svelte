@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type BadgeVariant = 'id' | 'neutral' | 'positive' | 'warning' | 'signal';
+	export type BadgeVariant = 'id' | 'neutral' | 'positive' | 'warning' | 'signal' | 'info';
 
 	/**
 	 * Variant → classes, lifted verbatim from the repeated pill markup across the
@@ -19,7 +19,8 @@
 		warning:
 			'rounded-full border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-1 text-[11px] font-medium text-amber-700 dark:text-amber-300',
 		signal:
-			'rounded-full border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-[11px] font-semibold text-red-700 dark:text-red-300'
+			'rounded-full border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-[11px] font-semibold text-red-700 dark:text-red-300',
+		info: 'rounded-full border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950 px-2 py-1 text-[11px] font-medium text-blue-700 dark:text-blue-300'
 	};
 </script>
 

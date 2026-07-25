@@ -2,6 +2,7 @@
 	import { tick } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	import { prefersReducedMotion } from '$lib/services/motion';
 
 	type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -68,11 +69,9 @@
 	// unten ein. Im Bottom-Sheet-Modus auf Phones (mobileBottom, <sm) rutscht
 	// sie komplett von der Unterkante herein — wie ein natives Sheet. Die
 	// Parameter werden pro Öffnen ausgewertet (Funktionsaufruf im Markup).
-	const reducedMotion = () =>
-		typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	const backdropFade = () => ({ duration: reducedMotion() ? 0 : 150 });
+	const backdropFade = () => ({ duration: prefersReducedMotion() ? 0 : 150 });
 	const panelFly = () => {
-		if (reducedMotion()) return { duration: 0 };
+		if (prefersReducedMotion()) return { duration: 0 };
 		const isSheet =
 			mobileBottom && variant === 'card' && window.matchMedia('(max-width: 639px)').matches;
 		return isSheet
