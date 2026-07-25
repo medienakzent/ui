@@ -33,7 +33,9 @@
 
 <script lang="ts">
 	import { Popover as PopoverPrimitive } from 'bits-ui';
-	import { Check, ChevronDown, Search } from 'lucide-svelte';
+	import Check from '@lucide/svelte/icons/check';
+	import ChevronDown from '@lucide/svelte/icons/chevron-down';
+	import Search from '@lucide/svelte/icons/search';
 	import { cn } from '$lib/utils';
 	import { dictionary } from '$lib/i18n';
 
