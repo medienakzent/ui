@@ -13,7 +13,7 @@
 <SelectPrimitive.Portal>
 	<SelectPrimitive.Content
 		class={cn(
-			'z-50 min-w-40 animate-in overflow-hidden rounded-md border border-slate-200 bg-popover text-popover-foreground shadow-md fade-in-80 dark:border-slate-800 dark:bg-slate-900',
+			'z-50 min-w-40 animate-in overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-md fade-in-80',
 			'data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1',
 			className
 		)}

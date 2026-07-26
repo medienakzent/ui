@@ -166,7 +166,7 @@
 				e.preventDefault();
 				listEl?.focus();
 			}}
-			class="z-50 flex max-h-[var(--bits-floating-available-height)] min-w-[max(10rem,var(--bits-floating-anchor-width))] animate-in flex-col overflow-hidden rounded-md border border-slate-200 bg-popover text-popover-foreground shadow-md fade-in-80 data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1 dark:border-slate-800 dark:bg-slate-900"
+			class="z-50 flex max-h-[var(--bits-floating-available-height)] min-w-[max(10rem,var(--bits-floating-anchor-width))] animate-in flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-md fade-in-80 data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1"
 		>
 			{#if searchable}
 				<div class="shrink-0 border-b border-border p-1.5">
