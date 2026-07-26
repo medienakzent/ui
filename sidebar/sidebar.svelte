@@ -34,6 +34,48 @@
 		{@render children?.()}
 	</div>
 {:else if sidebar.isMobile}
+	<!-- Handy: dauerhafte schmale Icon-Leiste links — wie die eingeklappte
+	     Desktop-Sidebar, aber mit schmalerem --sidebar-width-icon-Override
+	     (2.5rem statt 3rem auf dem Tablet). Das Sheet darunter bleibt für das
+	     volle Menü (Trigger → setOpenMobile). -->
+	<div
+		class="group peer block text-sidebar-foreground"
+		data-state="collapsed"
+		data-collapsible="icon"
+		data-variant={variant}
+		data-side={side}
+		data-slot="sidebar"
+		style="--sidebar-width-icon: 2.5rem;"
+	>
+		<div
+			data-slot="sidebar-gap"
+			class={cn(
+				'relative bg-transparent',
+				variant === 'floating' || variant === 'inset'
+					? 'w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
+					: 'w-(--sidebar-width-icon)'
+			)}
+		></div>
+		<div
+			data-slot="sidebar-container"
+			class={cn(
+				'fixed inset-y-0 z-10 flex h-svh',
+				side === 'left' ? 'start-0' : 'end-0',
+				variant === 'floating' || variant === 'inset'
+					? 'w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)] p-2'
+					: 'w-(--sidebar-width-icon) group-data-[side=left]:border-e group-data-[side=right]:border-s',
+				className
+			)}
+		>
+			<div
+				data-sidebar="sidebar"
+				data-slot="sidebar-inner"
+				class="flex h-full w-full flex-col bg-transparent group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:bg-sidebar group-data-[variant=floating]:shadow-sm"
+			>
+				{@render children?.()}
+			</div>
+		</div>
+	</div>
 	<Sheet.Root bind:open={() => sidebar.openMobile, (v) => sidebar.setOpenMobile(v)} {...restProps}>
 		<Sheet.Content
 			data-sidebar="sidebar"
