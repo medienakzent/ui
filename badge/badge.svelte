@@ -2,25 +2,26 @@
 	export type BadgeVariant = 'id' | 'neutral' | 'positive' | 'warning' | 'signal' | 'info';
 
 	/**
-	 * Variant → classes, lifted verbatim from the repeated pill markup across the
-	 * list items so the visual result is unchanged.
-	 *  - `id`       inline id / secondary badge next to a title
-	 *  - `neutral`  metric pill (counts)
-	 *  - `positive` success / contract / done
-	 *  - `warning`  attention / unchecked / locked
+	 * Variant → classes. Außendienst-Umbau: nüchterne Optik — rounded-md statt
+	 * Pill-Form, text-xs als Untergrenze, Farbe nur funktional (Ampel):
+	 *  - `id`       inline id / secondary badge next to a title (grau)
+	 *  - `neutral`  metric pill (counts, grau)
+	 *  - `info`     Metadaten/Hinweis — bewusst dieselbe graue Optik wie neutral
+	 *  - `positive` success / contract / done (grün)
+	 *  - `warning`  attention / unchecked / locked (amber)
 	 *  - `signal`   strong red marker (e.g. Begehungs-Auftrag)
 	 */
 	export const badgeVariants: Record<BadgeVariant, string> = {
-		id: 'rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground',
+		id: 'rounded-md bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground',
 		neutral:
-			'rounded-full border border-border bg-background px-2 py-1 text-[11px] font-medium text-foreground',
+			'rounded-md border border-border bg-background px-2 py-1 text-xs font-medium text-foreground',
 		positive:
-			'rounded-full border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950 px-2 py-1 text-[11px] font-medium text-emerald-700 dark:text-emerald-300',
+			'rounded-md border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950 px-2 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300',
 		warning:
-			'rounded-full border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-1 text-[11px] font-medium text-amber-700 dark:text-amber-300',
+			'rounded-md border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-300',
 		signal:
-			'rounded-full border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-[11px] font-semibold text-red-700 dark:text-red-300',
-		info: 'rounded-full border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950 px-2 py-1 text-[11px] font-medium text-blue-700 dark:text-blue-300'
+			'rounded-md border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-xs font-semibold text-red-700 dark:text-red-300',
+		info: 'rounded-md border border-border bg-background px-2 py-1 text-xs font-medium text-foreground'
 	};
 </script>
 

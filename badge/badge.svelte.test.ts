@@ -12,7 +12,7 @@ describe('Badge', () => {
 		const { container } = render(Badge);
 		const el = container.querySelector('span');
 		expect(el).not.toBeNull();
-		expect(el?.className).toContain('rounded-full');
+		expect(el?.className).toContain('rounded-md');
 		// neutral is the default variant
 		expect(el?.className).toContain('text-foreground');
 	});
