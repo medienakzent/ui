@@ -1,7 +1,9 @@
 <script lang="ts">
 	/**
-	 * Runde Count-Badge, die oben rechts an einem Button/Icon „klebt".
-	 * Voraussetzung: der umgebende Button (bzw. Container) ist `relative`.
+	 * Inline-Count neben Icon/Text eines Buttons (z. B. „Kollegen 1").
+	 * Bewusst KEIN absolut positionierter Notification-Dot mehr: der ragte über
+	 * den Button hinaus und wurde von paint-containment-Vorfahren
+	 * (content-visibility der Listenzeilen) abgeschnitten.
 	 * Wird nur bei count > 0 gerendert; `pointer-events-none`, damit der Klick
 	 * weiterhin den Button trifft.
 	 */
@@ -10,7 +12,7 @@
 
 {#if count > 0}
 	<span
-		class="pointer-events-none absolute -top-1.5 -right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] leading-none font-semibold text-primary-foreground"
+		class="pointer-events-none inline-flex h-4.5 min-w-4.5 items-center justify-center rounded-md bg-muted px-1 text-xs leading-none font-semibold text-muted-foreground tabular-nums"
 	>
 		{count}
 	</span>
