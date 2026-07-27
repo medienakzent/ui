@@ -4,7 +4,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { prefersReducedMotion } from '$lib/services/motion';
 
-	type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+	type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
 
 	/**
 	 * Generic modal shell.
@@ -62,7 +62,10 @@
 		md: 'max-w-md',
 		lg: 'max-w-lg',
 		xl: 'max-w-xl',
-		'2xl': 'max-w-2xl'
+		'2xl': 'max-w-2xl',
+		// Vollflächig: Karte füllt den kompletten Viewport (Formulare wie die
+		// Ansprechpartner-Anlage) — Fokus-Trap/Scroll-Lock/ESC wie gehabt.
+		full: 'max-w-none'
 	};
 
 	// Öffnen/Schließen animieren: Backdrop blendet, die Karte fliegt kurz von
@@ -114,9 +117,11 @@
 			<div
 				bind:this={dialogEl}
 				transition:fly|global={panelFly()}
-				class={mobileBottom
-					? `flex max-h-[90dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-t-xl bg-background shadow-xl outline-none sm:mx-4 sm:max-h-[85dvh] sm:rounded-lg`
-					: `mx-4 flex max-h-[85dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none`}
+				class={size === 'full'
+					? 'flex h-dvh max-h-none w-full flex-col overflow-hidden bg-background outline-none'
+					: mobileBottom
+						? `flex max-h-[90dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-t-xl bg-background shadow-xl outline-none sm:mx-4 sm:max-h-[85dvh] sm:rounded-lg`
+						: `mx-4 flex max-h-[85dvh] w-full ${sizeClass[size]} flex-col overflow-hidden rounded-lg bg-background shadow-xl outline-none`}
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby={labelledBy}
