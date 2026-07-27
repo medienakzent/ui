@@ -50,7 +50,7 @@
 			></div>
 		{/if}
 		{@render children?.()}
-		<!-- Beschrifteter Schließen-Button statt X-Icon (User-Vorgabe 2026-07-27) -->
+		<!-- Beschrifteter Schließen-Button statt X-Icon (bewusste Vorgabe) -->
 		<SheetPrimitive.Close
 			class="absolute end-4 top-3 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none"
 		>
