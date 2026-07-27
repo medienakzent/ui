@@ -2,8 +2,6 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
 	import Menu from '@lucide/svelte/icons/menu';
-	import PanelLeftClose from '@lucide/svelte/icons/panel-left-close';
-	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 	import type { ComponentProps } from 'svelte';
 	import { useSidebar } from './context.svelte.js';
 
@@ -32,14 +30,8 @@
 	}}
 	{...restProps}
 >
-	{#if sidebar.isMobile}
-		<!-- Mobil öffnet der Trigger das Sheet-Menü — der klassische Hamburger
-		     kommuniziert das klarer als das Panel-Symbol. -->
-		<Menu class="size-5" />
-	{:else if sidebar.open}
-		<PanelLeftClose class="size-5" />
-	{:else}
-		<PanelLeftOpen class="size-5" />
-	{/if}
+	<!-- Einheitlich auf allen Geräten: der klassische Hamburger kommuniziert
+	     „Menü" klarer als die Panel-Symbole. -->
+	<Menu class="size-5" />
 	<span class="sr-only">Toggle Sidebar</span>
 </Button>
