@@ -11,8 +11,10 @@
 	 *  - `warning`  attention / unchecked / locked (amber)
 	 *  - `signal`   strong red marker (e.g. Begehungs-Auftrag)
 	 */
+	// Einheitliche Geometrie für ALLE Varianten (User-Vorgabe 2026-07-28):
+	// rounded-md, border, px-2 py-1, text-xs font-medium — nur die Farbe variiert.
 	export const badgeVariants: Record<BadgeVariant, string> = {
-		id: 'rounded-md bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground',
+		id: 'rounded-md border border-border bg-muted px-2 py-1 text-xs font-medium text-muted-foreground',
 		neutral:
 			'rounded-md border border-border bg-background px-2 py-1 text-xs font-medium text-foreground',
 		positive:
@@ -20,7 +22,7 @@
 		warning:
 			'rounded-md border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-300',
 		signal:
-			'rounded-md border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-xs font-semibold text-red-700 dark:text-red-300',
+			'rounded-md border border-red-300 dark:border-red-900 bg-red-50 dark:bg-red-950 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-300',
 		info: 'rounded-md border border-border bg-background px-2 py-1 text-xs font-medium text-foreground'
 	};
 </script>
