@@ -99,6 +99,49 @@
 	$: if (open && dialogEl) {
 		tick().then(() => dialogEl?.focus());
 	}
+
+	// ── iPad/Mobile: fokussierte Eingaben IMMER in den sichtbaren Bereich
+	// scrollen (User-Vorgabe 2026-07-28). Wenn die Bildschirmtastatur auffährt,
+	// verdeckt sie sonst das fokussierte Feld — vor allem in bottom-anchored
+	// Sheets. Zwei Signale: focusin (Feld angetippt) und visualViewport-resize
+	// (Tastatur fährt auf/zu, auch verzögert nach dem Fokus).
+	function isEditable(el: EventTarget | null): el is HTMLElement {
+		return (
+			el instanceof HTMLElement &&
+			(el instanceof HTMLInputElement ||
+				el instanceof HTMLTextAreaElement ||
+				el instanceof HTMLSelectElement ||
+				el.isContentEditable)
+		);
+	}
+
+	function scrollFocusedIntoView() {
+		const active = document.activeElement;
+		if (!dialogEl || !isEditable(active) || !dialogEl.contains(active)) return;
+		// 'center' hält das Feld auch dann sichtbar, wenn die Tastatur die
+		// untere Viewport-Hälfte einnimmt; 'nearest' würde am Sheet-Rand kleben.
+		active.scrollIntoView({ block: 'center', behavior: 'smooth' });
+	}
+
+	function handleFocusIn(e: FocusEvent) {
+		if (!isEditable(e.target)) return;
+		// Verzögert: iOS fährt die Tastatur erst NACH dem focus-Event auf und
+		// verschiebt dabei den visualViewport — sofortiges Scrollen greift zu früh.
+		setTimeout(scrollFocusedIntoView, 300);
+	}
+
+	let cleanupViewport: (() => void) | null = null;
+	$: if (typeof window !== 'undefined') {
+		if (open && !cleanupViewport && window.visualViewport) {
+			const vv = window.visualViewport;
+			const onResize = () => scrollFocusedIntoView();
+			vv.addEventListener('resize', onResize);
+			cleanupViewport = () => vv.removeEventListener('resize', onResize);
+		} else if (!open && cleanupViewport) {
+			cleanupViewport();
+			cleanupViewport = null;
+		}
+	}
 </script>
 
 {#if open}
@@ -110,6 +153,7 @@
 			: 'items-center'}"
 		on:click={handleBackdrop}
 		on:keydown={handleKeydown}
+		on:focusin={handleFocusIn}
 		role="presentation"
 		transition:fade={backdropFade()}
 	>
