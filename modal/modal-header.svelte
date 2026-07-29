@@ -16,6 +16,12 @@
 	export let onClose: () => void;
 	/** id für aria-labelledby des Modals. */
 	export let titleId: string | undefined = undefined;
+	/**
+	 * Blendet den X-Schließen-Button aus — für nicht verlassbare Popups (z. B.
+	 * der verpflichtende Abschluss-/Prüfbericht-Dialog), die nur über eine
+	 * bewusste Aktion (Versand / Abschließen) beendet werden dürfen.
+	 */
+	export let hideClose: boolean = false;
 </script>
 
 <header class="shrink-0 border-b border-border p-4">
@@ -29,15 +35,17 @@
 		<div class="flex shrink-0 items-center gap-1.5">
 			<!-- Zusatz-Aktionen (z. B. Download) links vom X -->
 			<slot name="actions" />
-			<button
-				type="button"
-				on:click={onClose}
-				aria-label={$dictionary.common.actions.close}
-				title={$dictionary.common.actions.close}
-				class="flex size-9 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
-			>
-				<XIcon class="size-5" />
-			</button>
+			{#if !hideClose}
+				<button
+					type="button"
+					on:click={onClose}
+					aria-label={$dictionary.common.actions.close}
+					title={$dictionary.common.actions.close}
+					class="flex size-9 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+				>
+					<XIcon class="size-5" />
+				</button>
+			{/if}
 		</div>
 	</div>
 	<slot />
