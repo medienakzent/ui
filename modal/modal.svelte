@@ -95,7 +95,6 @@
 		document.body.style.overflow = open ? 'hidden' : '';
 	}
 
-	// Initial focus when opening
 	$: if (open && dialogEl) {
 		tick().then(() => dialogEl?.focus());
 	}
