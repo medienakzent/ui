@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Label as LabelPrimitive } from 'bits-ui';
-	import { cn } from '$lib/ui-utils.js';
+	import { cn } from '../utils/ui-utils.js';
 
 	let {
 		ref = $bindable(null),

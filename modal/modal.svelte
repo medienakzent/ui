@@ -2,7 +2,7 @@
 	import { tick } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { prefersReducedMotion } from '$lib/services/motion';
+	import { prefersReducedMotion } from '../utils/motion.js';
 
 	type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
 

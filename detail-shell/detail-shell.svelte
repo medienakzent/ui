@@ -1,6 +1,6 @@
 <script lang="ts">
-	import DetailSkeleton from '$lib/components/ui/skeleton/detail-skeleton.svelte';
-	import { cn } from '$lib/ui-utils.js';
+	import DetailSkeleton from '../skeleton/detail-skeleton.svelte';
+	import { cn } from '../utils/ui-utils.js';
 	import type { Snippet } from 'svelte';
 
 	/**

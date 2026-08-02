@@ -2,10 +2,10 @@
 	/**
 	 * Ein beschriftetes Unterschriften-Feld (Canvas + Löschen-Link + Fehlerzeile) —
 	 * gemeinsame Basis von signature-popup (Lieferscheine) und project-summary
-	 * (Zusammenfassungs-Tab). Die Zeichenlogik liegt in services/signature-pad.
+	 * (Zusammenfassungs-Tab). Die Zeichenlogik liegt in ui/utils/signature-pad.
 	 */
-	import { Field, FieldLabel, FieldError } from '$lib/components/ui/field/index.js';
-	import { setupSignaturePad, type SignaturePad } from '$lib/services/signature-pad';
+	import { Field, FieldLabel, FieldError } from '../field/index.js';
+	import { setupSignaturePad, type SignaturePad } from '../utils/signature-pad.js';
 	import { getUiLabels } from '../labels/index.js';
 
 	export let id: string;

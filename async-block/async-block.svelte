@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoadingIndicator from '$lib/components/ui/loading-indicator/loading-indicator.svelte';
+	import LoadingIndicator from '../loading-indicator/loading-indicator.svelte';
 	import type { Snippet } from 'svelte';
 
 	/**

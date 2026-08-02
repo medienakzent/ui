@@ -28,7 +28,7 @@
 </script>
 
 <script lang="ts">
-	import { cn } from '$lib/ui-utils.js';
+	import { cn } from '../utils/ui-utils.js';
 
 	/**
 	 * Presentational pill. Renders a `<span>` by default; pass `href` or `onclick`

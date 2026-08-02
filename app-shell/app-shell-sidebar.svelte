@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { tick, untrack, type ComponentProps, type Snippet } from 'svelte';
-	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { useSidebar } from '$lib/components/ui/sidebar/index.js';
-	import NavMain from '$lib/components/nav-main.svelte';
-	import NavSecondary from '$lib/components/nav-secondary.svelte';
-	import NavUser from '$lib/components/nav-user.svelte';
-	import type { ShellNavItem } from '$lib/components/nav-types.js';
+	import * as Sidebar from '../sidebar/index.js';
+	import { useSidebar } from '../sidebar/index.js';
+	import NavMain from './nav-main.svelte';
+	import NavSecondary from './nav-secondary.svelte';
+	import NavUser from './nav-user.svelte';
+	import type { ShellNavItem } from './nav-types.js';
 	import SearchIcon from '@lucide/svelte/icons/search';
 
 	type Props = {

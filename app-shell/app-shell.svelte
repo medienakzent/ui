@@ -13,10 +13,10 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
-	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import Button from '../button/button.svelte';
+	import * as Breadcrumb from '../breadcrumb/index.js';
+	import { Separator } from '../separator/index.js';
+	import * as Sidebar from '../sidebar/index.js';
 	import ArrowLeftIcon from '@lucide/svelte/icons/arrow-left';
 	import ArrowRightIcon from '@lucide/svelte/icons/arrow-right';
 

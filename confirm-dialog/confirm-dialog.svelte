@@ -5,9 +5,9 @@
 	 * ersetzt die früheren handgebauten fixed-Overlays. Der Fließtext kommt
 	 * über `body` oder frei über den Default-Slot (z. B. mit Zusatz-Inputs).
 	 */
-	import Modal from '$lib/components/ui/modal/modal.svelte';
-	import ModalHeader from '$lib/components/ui/modal/modal-header.svelte';
-	import ModalFooter from '$lib/components/ui/modal/modal-footer.svelte';
+	import Modal from '../modal/modal.svelte';
+	import ModalHeader from '../modal/modal-header.svelte';
+	import ModalFooter from '../modal/modal-footer.svelte';
 
 	export let open: boolean = false;
 	export let title: string;

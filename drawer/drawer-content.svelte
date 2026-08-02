@@ -14,7 +14,7 @@
 	import SheetPortal from '../sheet/sheet-portal.svelte';
 	import SheetOverlay from '../sheet/sheet-overlay.svelte';
 	import { sheetVariants, type Side } from '../sheet/sheet-content.svelte';
-	import { cn, type WithoutChildrenOrChild } from '$lib/ui-utils.js';
+	import { cn, type WithoutChildrenOrChild } from '../utils/ui-utils.js';
 	import type { ComponentProps } from 'svelte';
 
 	let {

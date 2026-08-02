@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/ui-utils.js';
+	import { cn } from '../utils/ui-utils.js';
 
 	/**
 	 * Lightweight CSS-only loading spinner. Inherits the current text color

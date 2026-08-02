@@ -21,10 +21,10 @@
 	 * The whole row gets a subtle hover background; `load` is wired to
 	 * `use:onVisible` for lazy metrics.
 	 */
-	import { onVisible } from '$lib/actions/on-visible';
-	import { cn } from '$lib/ui-utils.js';
+	import { onVisible } from '../utils/on-visible.js';
+	import { cn } from '../utils/ui-utils.js';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
-	import Badge from '$lib/components/ui/badge/badge.svelte';
+	import Badge from '../badge/badge.svelte';
 
 	export let href: string | null = null;
 	export let load: (() => void) | null = null;

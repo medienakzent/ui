@@ -20,9 +20,9 @@ export type UiLabels = {
 	showMore: string;
 	/** collapsible-text */
 	showLess: string;
-	/** ja-nein-icon */
+	/** boolean-icon (Tooltip/aria-label bei `value === true`) */
 	yes: string;
-	/** ja-nein-icon */
+	/** boolean-icon (Tooltip/aria-label bei `value === false`) */
 	no: string;
 	/** searchable-select (Suchfeld im Panel) */
 	searchPlaceholder: string;

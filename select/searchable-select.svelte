@@ -36,7 +36,7 @@
 	import Check from '@lucide/svelte/icons/check';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Search from '@lucide/svelte/icons/search';
-	import { cn } from '$lib/ui-utils';
+	import { cn } from '../utils/ui-utils.js';
 	import { getUiLabels } from '../labels/index.js';
 
 	let {
