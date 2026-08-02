@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
-	import { cn } from '$lib/utils.js';
+	import { cn } from '$lib/ui-utils.js';
 
 	/**
 	 * Inline "loading…" indicator: an animated spinner next to a label. Drop-in

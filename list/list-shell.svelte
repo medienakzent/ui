@@ -5,7 +5,7 @@
 	import XIcon from '@lucide/svelte/icons/x';
 	import { uiSettings } from '$lib/stores/ui-settings';
 	import { showError } from '$lib/services/toast';
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 
 	export let title: string;
 	/** Kompletten Kopf (Überschrift + Zähler-Badge) ausblenden — z. B. im Geräte-
@@ -22,7 +22,9 @@
 	export let search: string = '';
 	export let skeletonCount: number = 5;
 
-	$: resolvedEmpty = emptyText || $dictionary.lists.emptyDefault;
+	const labels = getUiLabels();
+
+	$: resolvedEmpty = emptyText || $labels.emptyDefault;
 
 	let lastReportedError = '';
 	$: if (error && error !== lastReportedError) {
@@ -84,8 +86,8 @@
 					<button
 						type="button"
 						on:click={() => (search = '')}
-						aria-label={$dictionary.lists.clearSearch}
-						title={$dictionary.lists.clearSearch}
+						aria-label={$labels.clearSearch}
+						title={$labels.clearSearch}
 						class="flex h-9 shrink-0 items-center justify-center border border-input bg-background px-2.5 text-foreground transition-colors hover:bg-muted"
 					>
 						<XIcon class="size-4" />
@@ -148,8 +150,8 @@
 				<button
 					type="button"
 					on:click={() => (search = '')}
-					aria-label={$dictionary.lists.clearSearch}
-					title={$dictionary.lists.clearSearch}
+					aria-label={$labels.clearSearch}
+					title={$labels.clearSearch}
 					class="flex h-9 shrink-0 items-center justify-center border border-input bg-background px-2.5 text-foreground transition-colors hover:bg-muted"
 				>
 					<XIcon class="size-4" />

@@ -6,7 +6,7 @@
 	 */
 	import { Field, FieldLabel, FieldError } from '$lib/components/ui/field/index.js';
 	import { setupSignaturePad, type SignaturePad } from '$lib/services/signature-pad';
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 
 	export let id: string;
 	export let label: string;
@@ -17,6 +17,8 @@
 	export let error: string | null = null;
 	/** true, sobald gezeichnet oder eine Alt-Unterschrift restauriert wurde (bind-fähig). */
 	export let hasInk: boolean = false;
+
+	const labels = getUiLabels();
 
 	let canvasEl: HTMLCanvasElement | null = null;
 	let pad: SignaturePad | null = null;
@@ -47,7 +49,7 @@
 			on:click={clear}
 			class="text-xs text-muted-foreground hover:text-foreground"
 		>
-			{$dictionary.signature.clear}
+			{$labels.signatureClear}
 		</button>
 	</div>
 	<canvas {id} use:init class="w-full rounded-md border border-border" style="touch-action: none;"

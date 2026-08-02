@@ -36,8 +36,8 @@
 	import Check from '@lucide/svelte/icons/check';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Search from '@lucide/svelte/icons/search';
-	import { cn } from '$lib/utils';
-	import { dictionary } from '$lib/i18n';
+	import { cn } from '$lib/ui-utils';
+	import { getUiLabels } from '../labels/index.js';
 
 	let {
 		options = [],
@@ -80,6 +80,8 @@
 		labelClass?: string;
 		open?: boolean;
 	} = $props();
+
+	const labels = getUiLabels();
 
 	let query = $state('');
 	let listEl: HTMLDivElement | null = $state(null);
@@ -178,7 +180,7 @@
 							bind:this={searchEl}
 							bind:value={query}
 							type="text"
-							placeholder={$dictionary.common.select.searchPlaceholder}
+							placeholder={$labels.searchPlaceholder}
 							onkeydown={onSearchKeydown}
 							class="h-8 w-full rounded-sm border border-input bg-background pr-2 pl-7 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
 						/>
@@ -227,7 +229,7 @@
 				{/each}
 				{#if filtered.length === 0}
 					<p class="px-2 py-3 text-center text-sm text-muted-foreground">
-						{$dictionary.common.select.noResults}
+						{$labels.noResults}
 					</p>
 				{/if}
 			</div>

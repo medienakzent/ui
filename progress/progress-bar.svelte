@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/utils.js';
+	import { cn } from '$lib/ui-utils.js';
 
 	/**
 	 * Schlichter Fortschrittsbalken für "X von Y erledigt"-Zustände (Tour-,

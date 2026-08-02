@@ -11,7 +11,7 @@
 </script>
 
 <script lang="ts">
-	import { cn } from '$lib/utils.js';
+	import { cn } from '$lib/ui-utils.js';
 	import type { Snippet } from 'svelte';
 
 	/**

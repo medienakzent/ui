@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { afterUpdate } from 'svelte';
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 
 	/**
 	 * Textblock mit Überschrift, der auf der Beleg-Detailseite standardmäßig auf
@@ -10,6 +10,8 @@
 	 */
 	export let title: string;
 	export let text: string | null | undefined;
+
+	const labels = getUiLabels();
 
 	let expanded = false;
 	let el: HTMLParagraphElement | undefined;
@@ -37,7 +39,7 @@
 				on:click={() => (expanded = !expanded)}
 				class="mt-1 text-xs font-medium text-primary hover:underline"
 			>
-				{expanded ? $dictionary.common.actions.showLess : $dictionary.common.actions.showMore}
+				{expanded ? $labels.showLess : $labels.showMore}
 			</button>
 		{/if}
 	</div>

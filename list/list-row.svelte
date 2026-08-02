@@ -22,7 +22,7 @@
 	 * `use:onVisible` for lazy metrics.
 	 */
 	import { onVisible } from '$lib/actions/on-visible';
-	import { cn } from '$lib/utils.js';
+	import { cn } from '$lib/ui-utils.js';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 

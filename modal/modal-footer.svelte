@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 
 	/**
 	 * Einheitliche Popup-Fußzeile (User-Vorgabe 2026-07-28): Abbrechen-Button
@@ -20,6 +20,8 @@
 	export let confirmDisabled: boolean = false;
 	export let destructive: boolean = false;
 	export let loading: boolean = false;
+
+	const labels = getUiLabels();
 </script>
 
 <footer class="flex shrink-0 items-center justify-end gap-3 border-t border-border p-4">
@@ -35,7 +37,7 @@
 			on:click={onCancel}
 			class="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-muted disabled:opacity-50"
 		>
-			{cancelLabel ?? $dictionary.common.actions.cancel}
+			{cancelLabel ?? $labels.cancel}
 		</button>
 	{/if}
 	<!-- Zusätzliche Buttons zwischen Abbrechen und Bestätigen (z. B. Logout:

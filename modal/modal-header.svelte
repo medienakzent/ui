@@ -1,6 +1,6 @@
 <script lang="ts">
 	import XIcon from '@lucide/svelte/icons/x';
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 
 	/**
 	 * Einheitliche Popup-Kopfzeile (User-Vorgabe 2026-07-28): Titel links,
@@ -22,6 +22,8 @@
 	 * bewusste Aktion (Versand / Abschließen) beendet werden dürfen.
 	 */
 	export let hideClose: boolean = false;
+
+	const labels = getUiLabels();
 </script>
 
 <header class="shrink-0 border-b border-border p-4">
@@ -39,8 +41,8 @@
 				<button
 					type="button"
 					on:click={onClose}
-					aria-label={$dictionary.common.actions.close}
-					title={$dictionary.common.actions.close}
+					aria-label={$labels.close}
+					title={$labels.close}
 					class="flex size-9 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
 				>
 					<XIcon class="size-5" />

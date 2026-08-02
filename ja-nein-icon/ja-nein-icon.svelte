@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CircleCheck from '@lucide/svelte/icons/circle-check';
 	import CircleX from '@lucide/svelte/icons/circle-x';
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 
 	/**
 	 * Einheitliche JaNein-Anzeige als Icon: grüner Haken im Kreis = Ja,
@@ -17,8 +17,10 @@
 		size?: number;
 	} = $props();
 
+	const labels = getUiLabels();
+
 	const ja = $derived(value === 'J' || value === 1 || value === true);
-	const label = $derived(ja ? $dictionary.common.yes : $dictionary.common.no);
+	const label = $derived(ja ? $labels.yes : $labels.no);
 </script>
 
 <span class="inline-flex items-center" role="img" title={label} aria-label={label}>

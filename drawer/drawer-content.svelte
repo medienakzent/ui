@@ -9,12 +9,12 @@
 	 * For non-bottom layouts (left/right/top), use `<Sheet>` directly.
 	 */
 	import { Dialog as SheetPrimitive } from 'bits-ui';
-	import { dictionary } from '$lib/i18n';
+	import { getUiLabels } from '../labels/index.js';
 	import type { Snippet } from 'svelte';
 	import SheetPortal from '../sheet/sheet-portal.svelte';
 	import SheetOverlay from '../sheet/sheet-overlay.svelte';
 	import { sheetVariants, type Side } from '../sheet/sheet-content.svelte';
-	import { cn, type WithoutChildrenOrChild } from '$lib/utils.js';
+	import { cn, type WithoutChildrenOrChild } from '$lib/ui-utils.js';
 	import type { ComponentProps } from 'svelte';
 
 	let {
@@ -33,6 +33,8 @@
 		grabber?: boolean;
 		children: Snippet;
 	} = $props();
+
+	const labels = getUiLabels();
 </script>
 
 <SheetPortal {...portalProps}>
@@ -54,7 +56,7 @@
 		<SheetPrimitive.Close
 			class="absolute end-4 top-3 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none"
 		>
-			{$dictionary.common.actions.close}
+			{$labels.close}
 		</SheetPrimitive.Close>
 	</SheetPrimitive.Content>
 </SheetPortal>
