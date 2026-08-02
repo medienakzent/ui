@@ -1,14 +1,25 @@
 <!--
-	Zentrales Dev-Modus-Gate: rendert seinen Inhalt nur, wenn der Dev-Modus
-	($lib/stores/dev-mode) aktiv ist. Für Debug-/Diagnose-Werkzeuge (z. B. die
-	Diagnose-Info-Popups der Listen), die Endnutzern nie angezeigt werden
-	dürfen. Das Gate lebt bewusst an EINER Stelle — Einbindungsstellen wrappen
-	nur, statt jeweils selbst $devMode zu prüfen.
+	Generisches Render-Gate: rendert seinen Inhalt genau dann, wenn `enabled`
+	wahr ist. Gedacht für Debug-/Diagnose-Werkzeuge (z. B. die Diagnose-Info-Popups
+	der Listen), die Endnutzern nie angezeigt werden dürfen.
+
+	Die Bedingung kommt bewusst vom Aufrufer und hat KEINEN Default (Testfrage
+	CONVENTIONS §3.1: `ui/` bleibt frei von App-Kopplung). Ein Default wäre in
+	beide Richtungen falsch — `false` versteckt die Werkzeuge auch vor
+	Entwicklern, `true` zeigt sie allen Nutzern. In dieser App lautet der Aufruf
+	daher immer `enabled={$devMode}` mit `devMode` aus `$lib/stores/dev-mode`.
 -->
 <script lang="ts">
-	import { devMode } from '$lib/stores/dev-mode';
+	import type { Snippet } from 'svelte';
+
+	type Props = {
+		enabled: boolean;
+		children?: Snippet;
+	};
+
+	let { enabled, children }: Props = $props();
 </script>
 
-{#if $devMode}
-	<slot />
+{#if enabled}
+	{@render children?.()}
 {/if}
