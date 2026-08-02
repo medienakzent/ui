@@ -8,7 +8,11 @@
 	 * grid — so the first paint shows structure instead of an empty screen or a
 	 * bare "Lädt…" line. `rows` controls how many grid rows are drawn.
 	 */
-	export let rows: number = 6;
+	type Props = {
+		rows?: number;
+	};
+
+	let { rows = 6 }: Props = $props();
 </script>
 
 <div class="space-y-4 p-1" aria-busy="true" aria-live="polite">

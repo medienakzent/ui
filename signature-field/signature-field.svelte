@@ -8,15 +8,26 @@
 	import { setupSignaturePad, type SignaturePad } from '../utils/signature-pad.js';
 	import { getUiLabels } from '../labels/index.js';
 
-	export let id: string;
-	export let label: string;
-	export let required: boolean = false;
-	/** Zuvor erfasste Unterschrift (PNG data URL oder base64) — wird beim Mount restauriert. */
-	export let initial: string = '';
-	/** Fehlertext unterhalb des Feldes (null = kein Fehler). */
-	export let error: string | null = null;
-	/** true, sobald gezeichnet oder eine Alt-Unterschrift restauriert wurde (bind-fähig). */
-	export let hasInk: boolean = false;
+	type Props = {
+		id: string;
+		label: string;
+		required?: boolean;
+		/** Zuvor erfasste Unterschrift (PNG data URL oder base64) — wird beim Mount restauriert. */
+		initial?: string;
+		/** Fehlertext unterhalb des Feldes (null = kein Fehler). */
+		error?: string | null;
+		/** true, sobald gezeichnet oder eine Alt-Unterschrift restauriert wurde (bind-fähig). */
+		hasInk?: boolean;
+	};
+
+	let {
+		id,
+		label,
+		required = false,
+		initial = '',
+		error = null,
+		hasInk = $bindable(false)
+	}: Props = $props();
 
 	const labels = getUiLabels();
 
@@ -46,7 +57,7 @@
 		</FieldLabel>
 		<button
 			type="button"
-			on:click={clear}
+			onclick={clear}
 			class="text-xs text-muted-foreground hover:text-foreground"
 		>
 			{$labels.signatureClear}

@@ -3,8 +3,9 @@
 	 * Einheitlicher Bestätigungs-Dialog (User-Vorgabe 2026-07-28): Modal-Karte
 	 * mit ModalHeader (Titel + X) und ModalFooter (Abbrechen/Bestätigen) —
 	 * ersetzt die früheren handgebauten fixed-Overlays. Der Fließtext kommt
-	 * über `body` oder frei über den Default-Slot (z. B. mit Zusatz-Inputs).
+	 * über `body` oder frei über den Default-Inhalt (z. B. mit Zusatz-Inputs).
 	 */
+	import type { Snippet } from 'svelte';
 	import Modal from '../modal/modal.svelte';
 	import ModalHeader from '../modal/modal-header.svelte';
 	import ModalFooter from '../modal/modal-footer.svelte';
@@ -21,6 +22,7 @@
 	export let loading: boolean = false;
 	/** z-Ebene — höher setzen, wenn der Dialog über einem offenen Popup liegt. */
 	export let zClass: string = 'z-50';
+	export let children: Snippet | undefined = undefined;
 </script>
 
 <Modal {open} size="sm" {onCancel} {zClass} mobileBottom>
@@ -29,7 +31,7 @@
 		{#if body}
 			<p class="text-sm text-muted-foreground">{body}</p>
 		{/if}
-		<slot />
+		{@render children?.()}
 	</div>
 	<ModalFooter {onCancel} {cancelLabel} {confirmLabel} {onConfirm} {destructive} {loading} />
 </Modal>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy, tick } from 'svelte';
+	import { tick } from 'svelte';
 
 	/**
 	 * Unsichtbarer „Mehr laden"-Sentinel für inkrementell gerenderte Listen
@@ -8,12 +8,16 @@
 	 * Tranche an. Nach dem DOM-Update wird der Sentinel re-observiert, damit
 	 * er auch dann weiterfeuert, wenn er sichtbar bleibt (schnelles Scrollen).
 	 */
-	export let total: number;
-	export let visible: number;
-	export let step: number = 100;
-	export let onMore: (next: number) => void;
+	type Props = {
+		total: number;
+		visible: number;
+		step?: number;
+		onMore: (next: number) => void;
+	};
 
-	let sentinel: HTMLDivElement | undefined;
+	let { total, visible, step = 100, onMore }: Props = $props();
+
+	let sentinel = $state<HTMLDivElement | undefined>(undefined);
 	let observer: IntersectionObserver | undefined;
 
 	async function handleIntersect(entries: IntersectionObserverEntry[]) {
@@ -27,16 +31,19 @@
 		}
 	}
 
-	$: setupObserver(sentinel);
-	function setupObserver(node: HTMLDivElement | undefined) {
-		observer?.disconnect();
-		observer = undefined;
+	// Seiteneffekt: Observer an den gebundenen Sentinel hängen und beim
+	// Wegfallen/Unmount wieder abräumen.
+	$effect(() => {
+		const node = sentinel;
 		if (!node || typeof IntersectionObserver === 'undefined') return;
-		observer = new IntersectionObserver(handleIntersect, { rootMargin: '320px 0px' });
-		observer.observe(node);
-	}
-
-	onDestroy(() => observer?.disconnect());
+		const io = new IntersectionObserver(handleIntersect, { rootMargin: '320px 0px' });
+		observer = io;
+		io.observe(node);
+		return () => {
+			io.disconnect();
+			if (observer === io) observer = undefined;
+		};
+	});
 </script>
 
 {#if visible < total}

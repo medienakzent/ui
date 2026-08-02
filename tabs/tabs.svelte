@@ -7,14 +7,19 @@
 		badge?: string | number | null;
 	};
 
-	export let tabs: Tab[];
-	export let active: string = tabs[0]?.id ?? '';
+	type Props = {
+		tabs: Tab[];
+		active?: string;
+	};
+
+	// Ohne übergebenen Wert startet die Leiste auf dem ersten Tab.
+	let { tabs, active = $bindable(tabs[0]?.id ?? '') }: Props = $props();
 
 	// Bei Überbreite (viele Tabs / schmale Screens) scrollt die Leiste horizontal;
 	// Kanten-Fades zeigen an, dass weitere Tabs außerhalb des Sichtbereichs liegen.
-	let scroller: HTMLDivElement | undefined;
-	let canLeft = false;
-	let canRight = false;
+	let scroller = $state<HTMLDivElement | undefined>(undefined);
+	let canLeft = $state(false);
+	let canRight = $state(false);
 
 	function updateHints() {
 		if (!scroller) return;
@@ -30,18 +35,21 @@
 	});
 
 	// Tab-Wechsel kann die Leiste neu rendern (Badges) — Hinweise nachziehen.
-	$: if (tabs && scroller) updateHints();
+	// Seiteneffekt (DOM-Messung), kein abgeleiteter Wert.
+	$effect(() => {
+		if (tabs && scroller) updateHints();
+	});
 </script>
 
 <div class="relative">
-	<div bind:this={scroller} on:scroll={updateHints} class="row-scroll gap-1 border-b border-border">
+	<div bind:this={scroller} onscroll={updateHints} class="row-scroll gap-1 border-b border-border">
 		{#each tabs as tab (tab.id)}
 			<button
 				class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium whitespace-nowrap {active ===
 				tab.id
 					? 'border-b-2 border-foreground text-foreground'
 					: 'text-muted-foreground'}"
-				on:click={() => (active = tab.id)}
+				onclick={() => (active = tab.id)}
 			>
 				{tab.label}
 				{#if tab.badge != null}

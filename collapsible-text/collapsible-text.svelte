@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { afterUpdate } from 'svelte';
 	import { getUiLabels } from '../labels/index.js';
 
 	/**
@@ -8,17 +7,24 @@
 	 * "Mehr anzeigen"-Umschalter — so geht kein Platz durch lange Betreff-/
 	 * Schluss-/Bemerkungstexte verloren.
 	 */
-	export let title: string;
-	export let text: string | null | undefined;
+	type Props = {
+		title: string;
+		text: string | null | undefined;
+	};
+
+	let { title, text }: Props = $props();
 
 	const labels = getUiLabels();
 
-	let expanded = false;
-	let el: HTMLParagraphElement | undefined;
-	let overflowing = false;
+	let expanded = $state(false);
+	let el = $state<HTMLParagraphElement | undefined>(undefined);
+	let overflowing = $state(false);
 
 	// Overflow nur im eingeklappten Zustand messen (dort ist die Höhe begrenzt).
-	afterUpdate(() => {
+	// Seiteneffekt (DOM-Messung nach dem Rendern), kein abgeleiteter Wert:
+	// `text` wird mitgelesen, damit nach Textwechsel neu gemessen wird.
+	$effect(() => {
+		void text;
 		if (el && !expanded) {
 			overflowing = el.scrollHeight - el.clientHeight > 2;
 		}
@@ -36,7 +42,7 @@
 		{#if overflowing || expanded}
 			<button
 				type="button"
-				on:click={() => (expanded = !expanded)}
+				onclick={() => (expanded = !expanded)}
 				class="mt-1 text-xs font-medium text-primary hover:underline"
 			>
 				{expanded ? $labels.showLess : $labels.showMore}

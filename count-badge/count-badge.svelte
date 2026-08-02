@@ -7,7 +7,11 @@
 	 * Wird nur bei count > 0 gerendert; `pointer-events-none`, damit der Klick
 	 * weiterhin den Button trifft.
 	 */
-	export let count: number;
+	type Props = {
+		count: number;
+	};
+
+	let { count }: Props = $props();
 </script>
 
 {#if count > 0}

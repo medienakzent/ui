@@ -7,7 +7,11 @@
 	 * placeholder matches the real rows. Renders `count` shimmering rows inside a
 	 * `divide-y` container — drop it in wherever a list is loading.
 	 */
-	export let count: number = 5;
+	type Props = {
+		count?: number;
+	};
+
+	let { count = 5 }: Props = $props();
 </script>
 
 <div class="divide-y divide-border">

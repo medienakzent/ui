@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tick } from 'svelte';
+	import { tick, type Snippet } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import { prefersReducedMotion } from '../utils/motion.js';
@@ -16,7 +16,7 @@
 	 *  - aria-modal + dialog role
 	 *  - max-height container with internal scrolling responsibility on consumer
 	 *
-	 * Consumer composes header / body / footer freely inside the default slot.
+	 * Consumer composes header / body / footer freely inside the default content.
 	 * For viewer-style fullscreen (no card, dark backdrop) pass `variant="plain"`.
 	 *
 	 * Example:
@@ -54,6 +54,7 @@
 	 * gleichem z-index das im DOM zuletzt gerenderte (alte) Popup.
 	 */
 	export let zClass: string = 'z-50';
+	export let children: Snippet | undefined = undefined;
 
 	let dialogEl: HTMLDivElement | undefined;
 
@@ -170,7 +171,7 @@
 				aria-labelledby={labelledBy}
 				tabindex="-1"
 			>
-				<slot />
+				{@render children?.()}
 			</div>
 		{:else}
 			<div
@@ -181,7 +182,7 @@
 				aria-labelledby={labelledBy}
 				tabindex="-1"
 			>
-				<slot />
+				{@render children?.()}
 			</div>
 		{/if}
 	</div>
