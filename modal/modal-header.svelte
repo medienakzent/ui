@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { getUiLabels } from '../labels/index.js';
 
@@ -22,6 +23,10 @@
 	 * bewusste Aktion (Versand / Abschließen) beendet werden dürfen.
 	 */
 	export let hideClose: boolean = false;
+	/** Zusatz-Aktionen (z. B. Download) links vom X. */
+	export let actions: Snippet | undefined = undefined;
+	/** Zusatzinhalt (Filter/Suche der Selektoren) UNTER der Titelzeile. */
+	export let children: Snippet | undefined = undefined;
 
 	const labels = getUiLabels();
 </script>
@@ -36,7 +41,7 @@
 		</div>
 		<div class="flex shrink-0 items-center gap-1.5">
 			<!-- Zusatz-Aktionen (z. B. Download) links vom X -->
-			<slot name="actions" />
+			{@render actions?.()}
 			{#if !hideClose}
 				<button
 					type="button"
@@ -50,5 +55,5 @@
 			{/if}
 		</div>
 	</div>
-	<slot />
+	{@render children?.()}
 </header>

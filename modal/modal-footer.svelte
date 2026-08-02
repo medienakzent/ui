@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { getUiLabels } from '../labels/index.js';
 
 	/**
@@ -20,14 +21,18 @@
 	export let confirmDisabled: boolean = false;
 	export let destructive: boolean = false;
 	export let loading: boolean = false;
+	/** Zusätzliche Buttons zwischen Abbrechen und Bestätigen. */
+	export let buttons: Snippet | undefined = undefined;
+	/** Zusatzaktionen, linksbündig (mr-auto) vor den Buttons. */
+	export let children: Snippet | undefined = undefined;
 
 	const labels = getUiLabels();
 </script>
 
 <footer class="flex shrink-0 items-center justify-end gap-3 border-t border-border p-4">
-	{#if $$slots.default}
+	{#if children}
 		<div class="mr-auto flex min-w-0 items-center gap-2">
-			<slot />
+			{@render children()}
 		</div>
 	{/if}
 	{#if onCancel}
@@ -42,7 +47,7 @@
 	{/if}
 	<!-- Zusätzliche Buttons zwischen Abbrechen und Bestätigen (z. B. Logout:
 	     „Nur abmelden") — Konsumenten nutzen die Sekundär-Klassen. -->
-	<slot name="buttons" />
+	{@render buttons?.()}
 	{#if confirmLabel}
 		<button
 			type={confirmType}
