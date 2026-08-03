@@ -1,6 +1,6 @@
 {
 	"name": "@compdata/ui",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Gemeinsame UI-Bausteine, App-Shell und Design-Tokens (Svelte 5, Tailwind 4)",
 	"license": "UNLICENSED",
 	"private": false,
@@ -39,7 +39,7 @@
 		}
 	},
 	"scripts": {
-		"prepare": "svelte-kit sync 2>/dev/null || true",
+		"prepare": "svelte-package",
 		"package": "svelte-package && publint || true",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"test": "vitest --run",
