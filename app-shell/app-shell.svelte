@@ -116,9 +116,33 @@
 	     neben der Icon-Leiste einen zusätzlichen weißen Streifen. -->
 	<!-- min-w-0: MAIN ist Flex-Item — ohne die Freigabe drückt der min-content
 	     langer Breadcrumbs das Layout über die Viewport-Breite hinaus. -->
-	<Sidebar.Inset class="min-w-0 md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ms-0">
+	<!-- --app-header-top: Ruheposition der Kopfzeile IM Inset. Die inset-Variante
+	     gibt dem MAIN ab md einen Rand (m-2) — ohne diesen Versatz würde die
+	     sticky-Leiste beim ersten Scrollen um genau diese 8px nach oben rutschen
+	     und erst dann kleben. Der Selektor steht hier (nicht in der Kopfzeile),
+	     weil nur MAIN Geschwister des Sidebar-`peer` ist.
+	     --app-header-bottom: Unterkante der klebenden Kopfzeile. Seiteninhalte
+	     mit EIGENEN sticky-Leisten (Suchleiste der Listen, Aktionsleiste der
+	     Prüfung) hängen sich daran, statt die 4rem hart zu verdrahten — nur so
+	     stimmt der Versatz auch mit Inset-Rand und Safe-Area. -->
+	<Sidebar.Inset
+		class="min-w-0 [--app-header-bottom:calc(var(--app-header-top,0px)+4rem+env(safe-area-inset-top))] md:peer-data-[variant=inset]:[--app-header-top:--spacing(2)] md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ms-0"
+	>
+		<!-- Kopfzeile klebt oben, ohne sich beim Scrollen zu bewegen:
+		     - `top-[var(--app-header-top,0px)]` = exakt die Ruheposition (s. o.).
+		     - Safe-Area: `body` bekommt in `layout.css` oben `env(safe-area-inset-top)`
+		       Polsterung. Eine bei `top: 0` klebende Leiste landet aber am ECHTEN
+		       Viewport-Rand — also in der installierten PWA hinter Statusleiste/Notch.
+		       Deshalb zieht die Leiste sich per negativem `mt` um den Inset nach oben
+		       und gibt ihn als eigene `pt`-Polsterung wieder aus: Ihr Kasten beginnt
+		       am Viewport-Rand (Hintergrund deckt die Statusleisten-Zone ab), ihr
+		       Inhalt bleibt darunter — und sie steht damit von Anfang an genau dort,
+		       wo sie klebt. Ohne Insets (Desktop/Android ohne Notch) sind alle
+		       env()-Werte 0 und es bleibt bei der schlichten h-16-Leiste.
+		     - `left/right` sind hier bewusst NICHT gesetzt (Reste der früheren
+		       fixed-Positionierung; bei sticky wirken sie nur horizontal). -->
 		<header
-			class="vt-app-header sticky top-0 right-2 left-2 z-50 flex h-16 items-center gap-2 rounded-t-md bg-background px-4 shadow-sm"
+			class="vt-app-header sticky top-[var(--app-header-top,0px)] z-50 mt-[calc(env(safe-area-inset-top)*-1)] flex h-[calc(4rem+env(safe-area-inset-top))] items-center gap-2 rounded-t-md bg-background px-4 pt-[env(safe-area-inset-top)] shadow-sm"
 		>
 			<div class="flex w-full items-center justify-between gap-2">
 				<div class="flex min-w-0 flex-1 items-center gap-2">
