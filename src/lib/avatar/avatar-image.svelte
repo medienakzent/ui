@@ -9,9 +9,14 @@
 	}: AvatarPrimitive.ImageProps = $props();
 </script>
 
+<!--
+	`object-contain` statt des shadcn-Defaults `object-cover`: Logos und
+	Firmenbilder sind selten quadratisch und wuerden sonst beschnitten.
+	Aufrufer koennen es per `class` weiterhin ueberschreiben (tailwind-merge).
+-->
 <AvatarPrimitive.Image
 	bind:ref
 	data-slot="avatar-image"
-	class={cn('aspect-square size-full', className)}
+	class={cn('aspect-square size-full object-contain', className)}
 	{...restProps}
 />
