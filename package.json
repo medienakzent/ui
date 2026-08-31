@@ -1,6 +1,6 @@
 {
 	"name": "@compdata/ui",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Gemeinsame UI-Bausteine, App-Shell und Design-Tokens (Svelte 5, Tailwind 4)",
 	"license": "UNLICENSED",
 	"private": false,

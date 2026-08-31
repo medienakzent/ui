@@ -63,7 +63,13 @@
 			{$labels.signatureClear}
 		</button>
 	</div>
-	<canvas {id} use:init class="w-full rounded-md border border-border" style="touch-action: none;"
+	<!-- Der Zeichengrund liegt bewusst in CSS und NICHT im Canvas-Inhalt:
+	     sonst backt toDataURL() eine deckende Flaeche in die exportierte PNG. -->
+	<canvas
+		{id}
+		use:init
+		class="w-full rounded-md border border-border bg-gray-100 dark:bg-gray-100"
+		style="touch-action: none;"
 	></canvas>
 	{#if error}
 		<FieldError>{error}</FieldError>

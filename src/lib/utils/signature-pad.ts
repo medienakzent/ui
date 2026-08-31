@@ -42,8 +42,13 @@ export function setupSignaturePad(
 		canvas.height = Math.round(CSS_HEIGHT * dpr);
 		canvas.style.height = `${CSS_HEIGHT}px`;
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-		ctx.fillStyle = '#f3f4f6';
-		ctx.fillRect(0, 0, cssWidth, CSS_HEIGHT);
+		// TRANSPARENT lassen: der Untergrund wurde frueher hier eingefaerbt und
+		// landete damit in jedem toDataURL() — die exportierte PNG hatte eine
+		// deckende graue Flaeche. Im Pruefbericht und auf dem Lieferschein sass
+		// die Unterschrift dadurch in einem grauen Kasten statt auf dem Papier.
+		// Die Flaeche zeichnet jetzt CSS auf dem <canvas>-Element (signature-
+		// field.svelte); der Nutzer sieht dasselbe, der Export bekommt Alpha.
+		ctx.clearRect(0, 0, cssWidth, CSS_HEIGHT);
 		const img = image ?? existingImg;
 		if (img) ctx.drawImage(img, 0, 0, cssWidth, CSS_HEIGHT);
 		applyStroke();
